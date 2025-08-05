@@ -26,6 +26,7 @@
       cursor: pointer;
       user-select: none;
       position: relative;
+      overflow: hidden;
     }
     .firmada {
       background-color: violet;
@@ -38,18 +39,20 @@
       right: 0;
       border-top: 3px solid red;
       transform: rotate(-45deg);
+      pointer-event: none; 
     }
     .final-aprobado::after {
       content: "";
       position: absolute;
       top: 50%;
-      left: 10%;
-      width: 80%;
-      height: 1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
       right: 0;
       border-top: 2px solid red;
       transform: rotate(45deg);
       transform-origin: center ; 
+      pointer-event: none;
     }
     .bloqueada {
       background-color: #888;
