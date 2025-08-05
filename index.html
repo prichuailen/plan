@@ -63,6 +63,7 @@
 <body>
   <h1>Malla Interactiva - Ingeniería Química</h1>
   <div id="contenedor-materias"></div>
+  
   <script>
     const materias = {
   "Primer nivel": [
@@ -200,9 +201,12 @@
       localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
     }
 
-    function puedeDesbloquear(materia) {
-      return materia.requisitos.every(id => estadoMaterias[id] >= 2);
-    }
+   function sePuedeDesbloquear(materia, estadoMaterias) {
+  return materia.requisitos.every(req => {
+    const estado = estadoMaterias[req.id] || 0;
+    return estado >= req.estado;
+  });
+}
 
     function crearMalla() {
       const contenedor = document.getElementById("contenedor-materias");
