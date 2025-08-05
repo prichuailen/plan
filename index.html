@@ -65,59 +65,134 @@
   <div id="contenedor-materias"></div>
   <script>
     const materias = {
-      "Primer nivel": [
-        { id: "IIQ", nombre: "Introducción a la Ingeniería Química", requisitos: [] },
-        { id: "SSRR", nombre: "Sistemas de Representación", requisitos: [] },
-        { id: "Ingles1", nombre: "Inglés 1", requisitos: [] },
-        { id: "AGA", nombre: "Álgebra y Geometría Analítica", requisitos: [] },
-        { id: "AM1", nombre: "Análisis Matemático 1", requisitos: [] },
-        { id: "IngSoc", nombre: "Ingeniería y Sociedad", requisitos: [] },
-        { id: "AM2", nombre: "Análisis Matemático 2", requisitos: []},
-        { id: "Q", nombre: "Química", requisitos: [] },
-        { id: "FI", nombre: "Fundamentos de Informática", requisitos: [] }
-      ],
-      "Segundo nivel": [
-        { id: "IEP", nombre: "Introducción a Equipos y Procesos", requisitos: ["IIQ", "Q"] },
-        { id: "QO", nombre: "Química Orgánica", requisitos: ["Q"] },
-        { id: "QI", nombre: "Química Inorgánica", requisitos: ["Q"] },
-        { id: "F1", nombre: "Física 1", requisitos: [] },
-        { id: "Ingles2", nombre: "Inglés 2", requisitos: ["Ingles1"] },
-        { id: "F2", nombre: "Física 2", requisitos: ["F1"] },
-        { id: "PyE", nombre: "Probabilidad y Estadística", requisitos: ["AM1", "AGA"] },
-        { id: "MSA", nombre: "Matemática Superior Aplicada", requisitos: ["AM2", "AM1", "AGA"] }
-      ],
-      "Tercer nivel": [
-        { id: "BME", nombre: "Balances de Masa y Energía", requisitos: ["Q", "SSRR", "FI", "IEP", "F2", "IIQ", "AGA", "AM1"] },
-        { id: "QAp", nombre: "Química Aplicada", requisitos: ["IEP", "QI", "F2", "QO", "IIQ", "IngSoc", "Q", "Ingles1"] },
-        { id: "termo", nombre: "Termodinámica", requisitos: ["QI", "AM2", "F2", "AM1", "Q"] },
-        { id: "CM", nombre: "Ciencia de los Materiales", requisitos: ["IEP", "QI", "QO", "IIQ", "Q"] },
-        { id: "QA", nombre: "Química Analítica", requisitos: ["PyE", "QI", "QO", "IngSoc", "Q"] },
-        { id: "MQB", nombre: "Microbiología y Química Biológica", requisitos: ["QI", "QO", "Q"] },
-        { id: "FT", nombre: "Fenómenos de Transporte", requisitos: ["IEP", "AM2", "F2", "AM1", "AGA", "Q"] },
-        { id: "FQ", nombre: "Físico Química", requisitos: ["IEP", "AM2", "F2", "AM1", "AGA", "Q"] },
-        { id: "leg", nombre: "Legislación", requisitos: ["IngSoc", "IIQ"] },
-        { id: "eco", nombre: "Economía", requisitos: ["IEP", "IngSoc", "AGA"] }
-      ],
-      "Cuarto nivel": [
-        { id: "DSOSP", nombre: "Diseño, Simulación, Optimización y Seguridad de Procesos", requisitos: ["BME", "MSA", "SSRR", "FI", "IEP", "AM2", "Ingles2"] },
-        { id: "OU1", nombre: "Operaciones Unitarias 1", requisitos: ["BME", "termo", "FT", "IEP", "AM2", "F2"] },
-        { id: "TET", nombre: "Tecnología de la Energía Térmica", requisitos: ["BME", "FQ", "termo", "FT", "IEP", "AM2", "F2"] },
-        { id: "MI", nombre: "Mecánica Industrial", requisitos: ["IEP", "FQ", "F1", "QI", "CM"] },
-        { id: "OI", nombre: "Organización Industrial", requisitos: ["PyE", "IEP", "IngSoc", "leg"] },
-        { id: "OU2", nombre: "Operaciones Unitarias 2", requisitos: ["FQ", "termo", "FT", "IEP", "AM2", "F2", "QO"] },
-        { id: "IRQ", nombre: "Ingeniería de las Reacciones Químicas", requisitos: ["BME", "FQ", "termo", "FT", "QI", "AM2", "QO"] }
-      ],
-      "Quinto nivel": [
-        { id: "proyecto", nombre: "Proyecto Final", requisitos: ["DSOSP", "OU1", "TET", "OU2", "IRQ", "QI", "BME", "FQ", "FT", "QAp", "eco"] },
-        { id: "CAP", nombre: "Control Automático de Procesos", requisitos: ["DSOSP", "OU2", "BME", "MSA", "QA"] },
-        { id: "PPBB", nombre: "Procesos Biotecnológicos", requisitos: ["BME", "FQ", "FT", "MQB", "IEP", "QI", "QO"] },
-        { id: "MIE", nombre: "Máquinas e Instalaciones Eléctricas", requisitos: ["OU1", "IEP", "F2"] },
-        { id: "HyST", nombre: "Higiene y Seguridad en el Trabajo", requisitos: ["BME", "QI", "QO", "IEP"] },
-        { id: "IA", nombre: "Ingeniería Ambiental", requisitos: ["QAp", "OU1", "OU2", "IRQ", "leg", "BME", "QA"] },
-        { id: "CCEP", nombre: "Calidad y Control Estadístico de Procesos", requisitos: ["PyE", "AM1"] },
-        { id: "PPS", nombre: "Práctica Profesional Supervisada", requisitos: ["DSOSP", "OU1", "TET", "OU2", "IRQ", "OI", "BME", "FQ", "FT", "QAp", "eco"] }
-      ]
-    };
+  "Primer nivel": [
+    { id: "IIQ", nombre: "Introducción a la Ingeniería Química", requisitos: [] },
+    { id: "SSRR", nombre: "Sistemas de Representación", requisitos: [] },
+    { id: "Ingles1", nombre: "Inglés 1", requisitos: [] },
+    { id: "AGA", nombre: "Álgebra y Geometría Analítica", requisitos: [] },
+    { id: "AM1", nombre: "Análisis Matemático 1", requisitos: [] },
+    { id: "IngSoc", nombre: "Ingeniería y Sociedad", requisitos: [] },
+    { id: "AM2", nombre: "Análisis Matemático 2", requisitos: [] },
+    { id: "Q", nombre: "Química", requisitos: [] },
+    { id: "FI", nombre: "Fundamentos de Informática", requisitos: [] }
+  ],
+
+  "Segundo nivel": [
+    { id: "IEP", nombre: "Introducción a Equipos y Procesos", requisitos: [{ id: "IIQ", estado: 1 }, { id: "Q", estado: 1 }] },
+    { id: "QO", nombre: "Química Orgánica", requisitos: [{ id: "Q", estado: 1 }] },
+    { id: "QI", nombre: "Química Inorgánica", requisitos: [{ id: "Q", estado: 1 }] },
+    { id: "F1", nombre: "Física 1", requisitos: [] },
+    { id: "Ingles2", nombre: "Inglés 2", requisitos: [{ id: "Ingles1", estado: 1 }] },
+    { id: "F2", nombre: "Física 2", requisitos: [{ id: "F1", estado: 1 }] },
+    { id: "PyE", nombre: "Probabilidad y Estadística", requisitos: [{ id: "AM1", estado: 1 }, { id: "AGA", estado: 1 }] },
+    { id: "MSA", nombre: "Matemática Superior Aplicada", requisitos: [{ id: "AM2", estado: 1 }, { id: "AM1", estado: 2 }, { id: "AGA", estado: 2 }] }
+  ],
+
+  "Tercer nivel": [
+    { id: "BME", nombre: "Balances de Masa y Energía", requisitos: [
+      { id: "Q", estado: 1 }, { id: "SSRR", estado: 1 }, { id: "FI", estado: 1 }, { id: "IEP", estado: 1 },
+      { id: "F2", estado: 1 }, { id: "IIQ", estado: 2 }, { id: "AGA", estado: 2 }, { id: "AM1", estado: 2 }
+    ]},
+    { id: "QAp", nombre: "Química Aplicada", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "QI", estado: 1 }, { id: "F2", estado: 1 }, { id: "QO", estado: 1 },
+      { id: "IIQ", estado: 2 }, { id: "IngSoc", estado: 2 }, { id: "Q", estado: 2 }, { id: "Ingles1", estado: 2 }
+    ]},
+    { id: "termo", nombre: "Termodinámica", requisitos: [
+      { id: "QI", estado: 1 }, { id: "AM2", estado: 1 }, { id: "F2", estado: 1 }, { id: "AM1", estado: 2 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "CM", nombre: "Ciencia de los Materiales", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "QI", estado: 1 }, { id: "QO", estado: 1 }, { id: "IIQ", estado: 2 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "QA", nombre: "Química Analítica", requisitos: [
+      { id: "PyE", estado: 1 }, { id: "QI", estado: 1 }, { id: "QO", estado: 1 }, { id: "IngSoc", estado: 2 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "MQB", nombre: "Microbiología y Química Biológica", requisitos: [
+      { id: "QI", estado: 1 }, { id: "QO", estado: 1 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "FT", nombre: "Fenómenos de Transporte", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "AM2", estado: 1 }, { id: "F2", estado: 1 },
+      { id: "AM1", estado: 2 }, { id: "AGA", estado: 2 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "FQ", nombre: "Físico Química", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "AM2", estado: 1 }, { id: "F2", estado: 1 },
+      { id: "AM1", estado: 2 }, { id: "AGA", estado: 2 }, { id: "Q", estado: 2 }
+    ]},
+    { id: "leg", nombre: "Legislación", requisitos: [
+      { id: "IngSoc", estado: 1 }, { id: "IIQ", estado: 1 }
+    ]},
+    { id: "eco", nombre: "Economía", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "IngSoc", estado: 2 }, { id: "AGA", estado: 2 }
+    ]}
+  ],
+
+  "Cuarto nivel": [
+    { id: "DSOSP", nombre: "Diseño, Simulación, Optimización y Seguridad de Procesos", requisitos: [
+      { id: "BME", estado: 1 }, { id: "MSA", estado: 1 }, { id: "SSRR", estado: 2 },
+      { id: "FI", estado: 2 }, { id: "IEP", estado: 2 }, { id: "AM2", estado: 2 }, { id: "Ingles2", estado: 2 }
+    ]},
+    { id: "OU1", nombre: "Operaciones Unitarias 1", requisitos: [
+      { id: "BME", estado: 1 }, { id: "termo", estado: 1 }, { id: "FT", estado: 1 },
+      { id: "IEP", estado: 2 }, { id: "AM2", estado: 2 }, { id: "F2", estado: 2 }
+    ]},
+    { id: "TET", nombre: "Tecnología de la Energía Térmica", requisitos: [
+      { id: "BME", estado: 1 }, { id: "FQ", estado: 1 }, { id: "termo", estado: 1 }, { id: "FT", estado: 1 },
+      { id: "IEP", estado: 2 }, { id: "AM2", estado: 2 }, { id: "F2", estado: 2 }
+    ]},
+    { id: "MI", nombre: "Mecánica Industrial", requisitos: [
+      { id: "IEP", estado: 1 }, { id: "FQ", estado: 1 },
+      { id: "F1", estado: 2 }, { id: "QI", estado: 2 }, { id: "CM", estado: 2 }
+    ]},
+    { id: "OI", nombre: "Organización Industrial", requisitos: [
+      { id: "PyE", estado: 1 },
+      { id: "IEP", estado: 2 }, { id: "IngSoc", estado: 2 }, { id: "leg", estado: 2 }
+    ]},
+    { id: "OU2", nombre: "Operaciones Unitarias 2", requisitos: [
+      { id: "FQ", estado: 1 }, { id: "termo", estado: 1 }, { id: "FT", estado: 1 },
+      { id: "IEP", estado: 2 }, { id: "AM2", estado: 2 }, { id: "F2", estado: 2 }, { id: "QO", estado: 2 }
+    ]},
+    { id: "IRQ", nombre: "Ingeniería de las Reacciones Químicas", requisitos: [
+      { id: "BME", estado: 1 }, { id: "FQ", estado: 1 }, { id: "termo", estado: 1 }, { id: "FT", estado: 1 },
+      { id: "QI", estado: 2 }, { id: "AM2", estado: 2 }, { id: "QO", estado: 2 }
+    ]}
+  ],
+
+  "Quinto nivel": [
+    { id: "proyecto", nombre: "Proyecto Final", requisitos: [
+      { id: "DSOSP", estado: 1 }, { id: "OU1", estado: 1 }, { id: "TET", estado: 1 },
+      { id: "OU2", estado: 1 }, { id: "IRQ", estado: 1 }, { id: "QI", estado: 1 },
+      { id: "BME", estado: 2 }, { id: "FQ", estado: 2 }, { id: "FT", estado: 2 },
+      { id: "QAp", estado: 2 }, { id: "eco", estado: 2 }
+    ]},
+    { id: "CAP", nombre: "Control Automático de Procesos", requisitos: [
+      { id: "DSOSP", estado: 1 }, { id: "OU2", estado: 1 },
+      { id: "BME", estado: 2 }, { id: "MSA", estado: 2 }, { id: "QA", estado: 2 }
+    ]},
+    { id: "PPBB", nombre: "Procesos Biotecnológicos", requisitos: [
+      { id: "BME", estado: 1 }, { id: "FQ", estado: 1 }, { id: "FT", estado: 1 }, { id: "MQB", estado: 1 },
+      { id: "IEP", estado: 2 }, { id: "QI", estado: 2 }, { id: "QO", estado: 2 }
+    ]},
+    { id: "MIE", nombre: "Máquinas e Instalaciones Eléctricas", requisitos: [
+      { id: "OU1", estado: 1 }, { id: "IEP", estado: 2 }, { id: "F2", estado: 2 }
+    ]},
+    { id: "HyST", nombre: "Higiene y Seguridad en el Trabajo", requisitos: [
+      { id: "BME", estado: 1 }, { id: "QI", estado: 1 }, { id: "QO", estado: 1 }, { id: "IEP", estado: 2 }
+    ]},
+    { id: "IA", nombre: "Ingeniería Ambiental", requisitos: [
+      { id: "QAp", estado: 1 }, { id: "OU1", estado: 1 }, { id: "OU2", estado: 1 }, { id: "IRQ", estado: 1 },
+      { id: "leg", estado: 2 }, { id: "BME", estado: 2 }, { id: "QA", estado: 2 }
+    ]},
+    { id: "CCEP", nombre: "Calidad y Control Estadístico de Procesos", requisitos: [
+      { id: "PyE", estado: 1 }, { id: "AM1", estado: 2 }
+    ]},
+    { id: "PPS", nombre: "Práctica Profesional Supervisada", requisitos: [
+      { id: "DSOSP", estado: 1 }, { id: "OU1", estado: 1 }, { id: "TET", estado: 1 },
+      { id: "OU2", estado: 1 }, { id: "IRQ", estado: 1 }, { id: "OI", estado: 1 },
+      { id: "BME", estado: 2 }, { id: "FQ", estado: 2 }, { id: "FT", estado: 2 },
+      { id: "QAp", estado: 2 }, { id: "eco", estado: 2 }
+    ]}
+  ]
+};
+
 
     const estadoMaterias = JSON.parse(localStorage.getItem("estadoMaterias") || "{}");
 
