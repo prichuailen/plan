@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Interactiva - Ingeniería Química</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .nivel {
+      margin-bottom: 30px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .materia {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      background-color: #ccc;
+      color: #000;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+    .firmada {
+      background-color: violet;
+    }
+    .aprobada::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 3px solid red;
+      transform: rotate(-45deg);
+    }
+    .final-aprobado::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 3px solid red;
+      transform: rotate(45deg);
+    }
+    .bloqueada {
+      background-color: #888;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Interactiva - Ingeniería Química</h1>
+  <div id="contenedor-materias"></div>
+  <script>
+    const materias = {
+      "Primer nivel": [
+        { id: "IIQ", nombre: "Introducción a la Ingeniería Química", requisitos: [] },
+        { id: "SSRR", nombre: "Sistemas de Representación", requisitos: [] },
+        { id: "Ingles1", nombre: "Inglés 1", requisitos: [] },
+        { id: "AGA", nombre: "Álgebra y Geometría Analítica", requisitos: [] },
+        { id: "AM1", nombre: "Análisis Matemático 1", requisitos: [] },
+        { id: "IngSoc", nombre: "Ingeniería y Sociedad", requisitos: [] },
+        { id: "AM2", nombre: "Análisis Matemático 2", requisitos: [] },
+        { id: "Q", nombre: "Química", requisitos: [] },
+        { id: "FI", nombre: "Fundamentos de Informática", requisitos: [] }
+      ],
+      "Segundo nivel": [
+        { id: "IEP", nombre: "Introducción a Equipos y Procesos", requisitos: ["IIQ", "Q"] },
+        { id: "QO", nombre: "Química Orgánica", requisitos: ["Q"] },
+        { id: "QI", nombre: "Química Inorgánica", requisitos: ["Q"] },
+        { id: "F1", nombre: "Física 1", requisitos: [] },
+        { id: "Ingles2", nombre: "Inglés 2", requisitos: ["Ingles1"] },
+        { id: "F2", nombre: "Física 2", requisitos: ["F1"] },
+        { id: "PyE", nombre: "Probabilidad y Estadística", requisitos: ["AM1", "AGA"] },
+        { id: "MSA", nombre: "Matemática Superior Aplicada", requisitos: ["AM2", "AM1", "AGA"] }
+      ],
+      "Tercer nivel": [
+        { id: "BME", nombre: "Balances de Masa y Energía", requisitos: ["Q", "SSRR", "FI", "IEP", "F2", "IIQ", "AGA", "AM1"] },
+        { id: "QAp", nombre: "Química Aplicada", requisitos: ["IEP", "QI", "F2", "QO", "IIQ", "IngSoc", "Q", "Ingles1"] },
+        { id: "termo", nombre: "Termodinámica", requisitos: ["QI", "AM2", "F2", "AM1", "Q"] },
+        { id: "CM", nombre: "Ciencia de los Materiales", requisitos: ["IEP", "QI", "QO", "IIQ", "Q"] },
+        { id: "QA", nombre: "Química Analítica", requisitos: ["PyE", "QI", "QO", "IngSoc", "Q"] },
+        { id: "MQB", nombre: "Microbiología y Química Biológica", requisitos: ["QI", "QO", "Q"] },
+        { id: "FT", nombre: "Fenómenos de Transporte", requisitos: ["IEP", "AM2", "F2", "AM1", "AGA", "Q"] },
+        { id: "FQ", nombre: "Físico Química", requisitos: ["IEP", "AM2", "F2", "AM1", "AGA", "Q"] },
+        { id: "leg", nombre: "Legislación", requisitos: ["IngSoc", "IIQ"] },
+        { id: "eco", nombre: "Economía", requisitos: ["IEP", "IngSoc", "AGA"] }
+      ],
+      "Cuarto nivel": [
+        { id: "DSOSP", nombre: "Diseño, Simulación, Optimización y Seguridad de Procesos", requisitos: ["BME", "MSA", "SSRR", "FI", "IEP", "AM2", "Ingles2"] },
+        { id: "OU1", nombre: "Operaciones Unitarias 1", requisitos: ["BME", "termo", "FT", "IEP", "AM2", "F2"] },
+        { id: "TET", nombre: "Tecnología de la Energía Térmica", requisitos: ["BME", "FQ", "termo", "FT", "IEP", "AM2", "F2"] },
+        { id: "MI", nombre: "Mecánica Industrial", requisitos: ["IEP", "FQ", "F1", "QI", "CM"] },
+        { id: "OI", nombre: "Organización Industrial", requisitos: ["PyE", "IEP", "IngSoc", "leg"] },
+        { id: "OU2", nombre: "Operaciones Unitarias 2", requisitos: ["FQ", "termo", "FT", "IEP", "AM2", "F2", "QO"] },
+        { id: "IRQ", nombre: "Ingeniería de las Reacciones Químicas", requisitos: ["BME", "FQ", "termo", "FT", "QI", "AM2", "QO"] }
+      ],
+      "Quinto nivel": [
+        { id: "proyecto", nombre: "Proyecto Final", requisitos: ["DSOSP", "OU1", "TET", "OU2", "IRQ", "QI", "BME", "FQ", "FT", "QAp", "eco"] },
+        { id: "CAP", nombre: "Control Automático de Procesos", requisitos: ["DSOSP", "OU2", "BME", "MSA", "QA"] },
+        { id: "PPBB", nombre: "Procesos Biotecnológicos", requisitos: ["BME", "FQ", "FT", "MQB", "IEP", "QI", "QO"] },
+        { id: "MIE", nombre: "Máquinas e Instalaciones Eléctricas", requisitos: ["OU1", "IEP", "F2"] },
+        { id: "HyST", nombre: "Higiene y Seguridad en el Trabajo", requisitos: ["BME", "QI", "QO", "IEP"] },
+        { id: "IA", nombre: "Ingeniería Ambiental", requisitos: ["QAp", "OU1", "OU2", "IRQ", "leg", "BME", "QA"] },
+        { id: "CCEP", nombre: "Calidad y Control Estadístico de Procesos", requisitos: ["PyE", "AM1"] },
+        { id: "PPS", nombre: "Práctica Profesional Supervisada", requisitos: ["DSOSP", "OU1", "TET", "OU2", "IRQ", "OI", "BME", "FQ", "FT", "QAp", "eco"] }
+      ]
+    };
+
+    const estadoMaterias = JSON.parse(localStorage.getItem("estadoMaterias") || "{}");
+
+    function guardarEstado() {
+      localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
+    }
+
+    function puedeDesbloquear(materia) {
+      return materia.requisitos.every(id => estadoMaterias[id] >= 2);
+    }
+
+    function crearMalla() {
+      const contenedor = document.getElementById("contenedor-materias");
+      contenedor.innerHTML = "";
+
+      for (const nivel in materias) {
+        const divNivel = document.createElement("div");
+        divNivel.className = "nivel";
+        const titulo = document.createElement("h2");
+        titulo.textContent = nivel;
+        divNivel.appendChild(titulo);
+
+        materias[nivel].forEach(materia => {
+          const div = document.createElement("div");
+          div.className = "materia";
+          div.textContent = materia.nombre;
+
+          const estado = estadoMaterias[materia.id] || 0;
+
+          if (!puedeDesbloquear(materia) && estado === 0) {
+            div.classList.add("bloqueada");
+          } else {
+            if (estado >= 1) div.classList.add("firmada");
+            if (estado === 1) div.classList.add("aprobada");
+            if (estado === 2) {
+              div.classList.add("aprobada");
+              div.classList.add("final-aprobado");
+            }
+
+            div.addEventListener("click", () => {
+              estadoMaterias[materia.id] = (estadoMaterias[materia.id] || 0) + 1;
+              if (estadoMaterias[materia.id] > 2) estadoMaterias[materia.id] = 0;
+              guardarEstado();
+              crearMalla();
+            });
+          }
+
+          divNivel.appendChild(div);
+        });
+
+        contenedor.appendChild(divNivel);
+      }
+    }
+
+    crearMalla();
+  </script>
+</body>
+</html>
